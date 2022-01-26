@@ -1,0 +1,1 @@
+create table Table_2 (IDEmployé int, Prénom varchar(50))
