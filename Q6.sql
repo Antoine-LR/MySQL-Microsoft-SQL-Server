@@ -1,20 +1,13 @@
-/*6. Taux d’évolution du nombre de ventes entre le premier et le second
-trimestre de 2020*/
-
 WITH
-
-Transactions_1er_trim as (
-	Select count(ID_Transactions) as T1
-	from Transactions
-	WHERE Date_mut BETWEEN '2020-01-01' AND '2020-03-31'
- ),
-
-Transactions_2eme_trim as (
-	Select count(ID_Transactions) as  T2
-	from Transactions
-	Where Date_mut BETWEEN '2020-04-01' AND '2020-06-30'
+sale_trim_1 as (
+select count(property_value) as T1 
+from sale
+where date_transfer between '2020-01-01' and '2020-03-31'
+),
+sale_trim_2 as (
+select count(property_value) as T2
+from sale
+where date_transfer between '2020-04-01' and '2020-06-30'
 )
-
-SELECT ((T2-T1)*100 /T2) as "Taux d’évolution du nombre de ventes entre le premier et le second
-trimestre de 2020"
-FROM Transactions_1er_trim, Transactions_2eme_trim
+select T1 as "Ventes premier trimestre de 2020", T2 as "Ventes second trimestre de 2020", ROUND(((T2-T1) *100 /T1),2) as "Taux dâ€™Ã©volution"
+from sale_trim_1, sale_trim_2

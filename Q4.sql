@@ -1,9 +1,14 @@
-/*4. Prix moyen du mètre carré d’une maison en Île-de-France.*/
-SELECT (SUM(Val_fonc) / SUM(Surf_carr)) AS "Prix moyen du mètre carré d’une maison en Île-de-France"
-FROM Transactions
-JOIN Bien
-ON Transactions.ID_Bien = Bien.ID_Bien
-JOIN Emplacement
-ON Emplacement.ID_Emplacement = Bien.ID_Emplacement
-WHERE Code_type_loc = 1
-AND Code_dept IN (75,77,78,91,92,93,94,95);
+select region_name as "region" , round(avg(property_value/carrez_surface),2) as prix_mÂ²
+from sale
+join asset
+on sale.ID_asset = asset.ID_asset
+join adress
+on asset.ID_adress = adress.ID_adress
+join region
+on region.ID_region = adress.ID_region
+where type_local = 'maison'
+and region_name = 'ÃŽle-de-France'
+
+
+
+

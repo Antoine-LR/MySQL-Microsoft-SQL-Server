@@ -1,11 +1,11 @@
-/*3. Liste des 10 départements où le prix du mètre carré est le plus élevé.*/
-
-Select TOP 10 Code_dept AS "Liste des 10 départements où le prix du m² est le plus élevé",
-(SUM(Val_fonc) / SUM(Surf_carr)) AS "Prix moyen du m²"
-FROM Emplacement
-JOIN Bien
-ON Emplacement.ID_Emplacement=Bien.ID_Emplacement
-JOIN Transactions
-ON Bien.ID_Bien=Transactions.ID_Bien
-GROUP BY Code_dept
-ORDER BY (SUM(Val_fonc) / SUM(Surf_carr)) DESC 
+select department_name as 'dÃ©partement' , round(avg(property_value/carrez_surface),2) as prix_mÂ²
+from sale
+join asset
+on sale.ID_asset = asset.ID_asset
+join adress
+on asset.ID_adress = adress.ID_adress
+join department
+on department.ID_department= adress.ID_department
+group by department_name
+order by prix_mÂ² desc
+limit 10
